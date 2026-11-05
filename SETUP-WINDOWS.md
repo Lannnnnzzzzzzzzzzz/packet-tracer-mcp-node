@@ -53,6 +53,27 @@ claude mcp list
 `packet-tracer` should show as connected. You never start the server by
 hand — Claude Code launches it (stdio) at the start of each session.
 
+### No CLI? Using the Claude Code extension in an IDE (Antigravity, VS Code, Cursor)
+
+The extension reads the same configuration as the CLI, so instead of
+`claude mcp add` you can register the server per project. Create a file
+named `.mcp.json` in the folder you open in the IDE:
+
+```json
+{
+  "mcpServers": {
+    "packet-tracer": {
+      "command": "node",
+      "args": ["C:\\Users\\<you>\\packet-tracer-mcp-node\\src\\index.js", "--stdio"]
+    }
+  }
+}
+```
+
+Use your real clone path from step 1 (backslashes doubled, as JSON
+requires). The Claude Code panel will ask you to approve the project's
+MCP server the first time; approve it, then continue with step 4.
+
 ## 4. First run
 
 1. Open Packet Tracer first, with the MCP Control Center window open
