@@ -135,6 +135,12 @@ npm install
   MCP SDK.
 - **Port 54321 busy** — another copy of the server (e.g. the Python
   original) is already running. Close it; one bridge at a time.
+- **No MCP BUILDER entry in the Extensions menu** — the module is not
+  registered yet. On some installs (seen on PT 8.2.1) dropping the file
+  into `extensions\` is not enough: open **Extensions > Scripting >
+  Configure PT Script Modules...**, click **Add**, pick the downloaded
+  `MCP-Control-Center.pts`, accept it if Windows/PT warns about the
+  publisher, click **OK**, then open **Extensions > MCP BUILDER**.
 - **Extension not detected after restart** — the `.pts` must sit in its
   own subfolder (`extensions\MCPControlCenter\`), not directly in
   `extensions\`, and Packet Tracer must be fully closed before copying
