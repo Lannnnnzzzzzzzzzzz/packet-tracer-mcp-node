@@ -1,0 +1,1067 @@
+{
+ "cases": [
+  {
+   "area": "walk_js",
+   "const": "WALK_JS",
+   "id": "walk_js.WALK_JS",
+   "module": "infrastructure.generator.walk_js"
+  },
+  {
+   "area": "simulation_js",
+   "const": "FAST_FORWARD_JS",
+   "id": "simulation_js.FAST_FORWARD_JS",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    true
+   ],
+   "fn": "simulation_mode_js",
+   "id": "simulation_mode_js(true)",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    false
+   ],
+   "fn": "simulation_mode_js",
+   "id": "simulation_mode_js(false)",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    "forward",
+    3
+   ],
+   "fn": "simulation_step_js",
+   "id": "simulation_step_js",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    10,
+    "",
+    true
+   ],
+   "fn": "packet_trace_js",
+   "id": "packet_trace_js(10)",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    5,
+    "R1",
+    false
+   ],
+   "fn": "packet_trace_js",
+   "id": "packet_trace_js(5,R1,false)",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    "PC1",
+    "PC2"
+   ],
+   "fn": "send_pdu_js",
+   "id": "send_pdu_js",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    null
+   ],
+   "fn": "parse_fast_forward",
+   "id": "parse_fast_forward(null)",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    "{\"ok\":true,\"fast_forwarded\":true,\"simulation_mode\":false}"
+   ],
+   "fn": "parse_fast_forward",
+   "id": "parse_fast_forward(ok)",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    "not json"
+   ],
+   "fn": "parse_fast_forward",
+   "id": "parse_fast_forward(garbage)",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    0
+   ],
+   "fn": "pdu_code_meaning",
+   "id": "pdu_code_meaning(0)",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    30
+   ],
+   "fn": "pdu_code_meaning",
+   "id": "pdu_code_meaning(30)",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "simulation_js",
+   "args": [
+    7
+   ],
+   "fn": "pdu_code_meaning",
+   "id": "pdu_code_meaning(7)",
+   "module": "infrastructure.generator.simulation_js"
+  },
+  {
+   "area": "state_js",
+   "args": [
+    "R1"
+   ],
+   "fn": "routes_js",
+   "id": "routes_js(R1)",
+   "module": "infrastructure.generator.state_js"
+  },
+  {
+   "area": "state_js",
+   "args": [],
+   "fn": "ospf_js",
+   "id": "ospf_js()",
+   "module": "infrastructure.generator.state_js"
+  },
+  {
+   "area": "state_js",
+   "args": [
+    "R1"
+   ],
+   "fn": "arp_js",
+   "id": "arp_js(R1)",
+   "module": "infrastructure.generator.state_js"
+  },
+  {
+   "area": "state_js",
+   "args": [
+    "SW1",
+    [
+     1,
+     10
+    ]
+   ],
+   "fn": "stp_js",
+   "id": "stp_js(SW1,[1,10])",
+   "module": "infrastructure.generator.state_js"
+  },
+  {
+   "area": "state_js",
+   "args": [
+    "SW1",
+    10
+   ],
+   "fn": "mac_table_js",
+   "id": "mac_table_js(SW1,10)",
+   "module": "infrastructure.generator.state_js"
+  },
+  {
+   "area": "state_js",
+   "args": [
+    "SW1"
+   ],
+   "fn": "vlans_js",
+   "id": "vlans_js(SW1)",
+   "module": "infrastructure.generator.state_js"
+  },
+  {
+   "area": "state_js",
+   "args": [
+    "R1"
+   ],
+   "fn": "dhcp_leases_js",
+   "id": "dhcp_leases_js(R1)",
+   "module": "infrastructure.generator.state_js"
+  },
+  {
+   "area": "state_js",
+   "args": [
+    "R1"
+   ],
+   "fn": "acl_js",
+   "id": "acl_js(R1)",
+   "module": "infrastructure.generator.state_js"
+  },
+  {
+   "area": "state_js",
+   "args": [
+    "R1"
+   ],
+   "fn": "nat_js",
+   "id": "nat_js(R1)",
+   "module": "infrastructure.generator.state_js"
+  },
+  {
+   "area": "topology_js",
+   "args": [],
+   "fn": "topology_snapshot_js",
+   "id": "topology_snapshot_js()",
+   "module": "infrastructure.generator.topology_js"
+  },
+  {
+   "area": "topology_js",
+   "args": [
+    "R1",
+    100,
+    200
+   ],
+   "fn": "move_device_js",
+   "id": "move_device_js",
+   "module": "infrastructure.generator.topology_js"
+  },
+  {
+   "area": "topology_js",
+   "args": [
+    "R'1",
+    "R2"
+   ],
+   "fn": "rename_device_js",
+   "id": "rename_device_js",
+   "module": "infrastructure.generator.topology_js"
+  },
+  {
+   "area": "topology_js",
+   "args": [
+    "R1",
+    "GigabitEthernet0/0"
+   ],
+   "fn": "delete_link_js",
+   "id": "delete_link_js",
+   "module": "infrastructure.generator.topology_js"
+  },
+  {
+   "area": "topology_js",
+   "const": "PORT_LINK_JS",
+   "id": "topology_js.PORT_LINK_JS",
+   "module": "infrastructure.generator.topology_js"
+  },
+  {
+   "area": "host_js",
+   "args": [
+    "R1",
+    "GigabitEthernet0/0"
+   ],
+   "fn": "port_state_js",
+   "id": "port_state_js",
+   "module": "infrastructure.generator.host_js"
+  },
+  {
+   "area": "host_js",
+   "args": [
+    "PC1"
+   ],
+   "fn": "read_device_panel_js",
+   "id": "read_device_panel_js",
+   "module": "infrastructure.generator.host_js"
+  },
+  {
+   "area": "host_js",
+   "args": [
+    "R1",
+    "0/0",
+    "HWIC-2T"
+   ],
+   "fn": "add_module_js",
+   "id": "add_module_js",
+   "module": "infrastructure.generator.host_js"
+  },
+  {
+   "area": "host_js",
+   "args": [
+    "R1",
+    "0/0"
+   ],
+   "fn": "remove_module_js",
+   "id": "remove_module_js",
+   "module": "infrastructure.generator.host_js"
+  },
+  {
+   "area": "module_js",
+   "args": [
+    "add",
+    [
+     {
+      "device": "R1",
+      "module": "HWIC-2T",
+      "slot": "0/0"
+     }
+    ]
+   ],
+   "fn": "module_change_js",
+   "id": "module_change_js(add)",
+   "module": "infrastructure.generator.module_js"
+  },
+  {
+   "area": "module_js",
+   "args": [
+    null
+   ],
+   "fn": "parse_module_change",
+   "id": "parse_module_change(null)",
+   "module": "infrastructure.generator.module_js"
+  },
+  {
+   "area": "ios_verify_js",
+   "args": [
+    "configureIosDevice('R1','hostname R1');"
+   ],
+   "fn": "verified_configure_js",
+   "id": "verified_configure_js",
+   "module": "infrastructure.generator.ios_verify_js"
+  },
+  {
+   "area": "ptbuilder_generator",
+   "args": [
+    "R1",
+    "2911",
+    "router",
+    100,
+    100
+   ],
+   "fn": "add_device_call",
+   "id": "add_device_call",
+   "module": "infrastructure.generator.ptbuilder_generator"
+  },
+  {
+   "area": "ptbuilder_generator",
+   "args": [
+    "R1",
+    "GigabitEthernet0/0",
+    "SW1",
+    "GigabitEthernet0/1",
+    "straight"
+   ],
+   "fn": "add_link_call",
+   "id": "add_link_call",
+   "module": "infrastructure.generator.ptbuilder_generator"
+  },
+  {
+   "area": "ptbuilder_generator",
+   "args": [
+    "$plan_small"
+   ],
+   "fn": "generate_ptbuilder_script",
+   "id": "generate_ptbuilder_script(plan)",
+   "module": "infrastructure.generator.ptbuilder_generator"
+  },
+  {
+   "area": "ptbuilder_generator",
+   "args": [
+    "$plan_small"
+   ],
+   "fn": "generate_full_script",
+   "id": "generate_full_script(plan)",
+   "module": "infrastructure.generator.ptbuilder_generator"
+  },
+  {
+   "area": "cli_config_generator",
+   "args": [
+    "$plan_small"
+   ],
+   "fn": "generate_all_configs",
+   "id": "generate_all_configs(plan)",
+   "module": "infrastructure.generator.cli_config_generator"
+  },
+  {
+   "area": "cli_config_generator",
+   "args": [
+    "$plan_small"
+   ],
+   "fn": "static_host_ips",
+   "id": "static_host_ips(plan)",
+   "module": "infrastructure.generator.cli_config_generator"
+  },
+  {
+   "area": "acl_cli_generator",
+   "args": [
+    "101"
+   ],
+   "fn": "is_named_acl",
+   "id": "is_named_acl(101)",
+   "module": "infrastructure.generator.acl_cli_generator"
+  },
+  {
+   "area": "acl_cli_generator",
+   "args": [
+    "BLOCK_HTTP"
+   ],
+   "fn": "is_named_acl",
+   "id": "is_named_acl(BLOCK)",
+   "module": "infrastructure.generator.acl_cli_generator"
+  },
+  {
+   "area": "acl_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.acls:ACLPlan",
+     "fields": {
+      "acl_type": "extended",
+      "entries": [
+       {
+        "$model": "domain.models.acls:ACLEntry",
+        "fields": {
+         "action": "deny",
+         "destination": "192.168.0.0 0.0.0.255",
+         "icmp_type": "echo",
+         "protocol": "icmp",
+         "source": "192.168.1.0 0.0.0.255"
+        }
+       },
+       {
+        "$model": "domain.models.acls:ACLEntry",
+        "fields": {
+         "action": "permit",
+         "destination": "any",
+         "protocol": "ip",
+         "source": "any"
+        }
+       }
+      ],
+      "name_or_number": "101",
+      "router": "R1"
+     }
+    }
+   ],
+   "fn": "generate_acl_cli",
+   "id": "generate_acl_cli(plan)",
+   "module": "infrastructure.generator.acl_cli_generator"
+  },
+  {
+   "area": "acl_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.acls:ACLPlan",
+     "fields": {
+      "acl_type": "extended",
+      "entries": [
+       {
+        "$model": "domain.models.acls:ACLEntry",
+        "fields": {
+         "action": "permit",
+         "dest_port": 80,
+         "dest_port_op": "eq",
+         "destination": "any",
+         "protocol": "tcp",
+         "source": "any"
+        }
+       }
+      ],
+      "name_or_number": "101",
+      "router": "R1"
+     }
+    },
+    null
+   ],
+   "fn": "build_configure_payload",
+   "id": "build_configure_payload(plan)",
+   "module": "infrastructure.generator.acl_cli_generator"
+  },
+  {
+   "area": "acl_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.acls:ACLBinding",
+     "fields": {
+      "acl_id": "101",
+      "direction": "in",
+      "interface": "GigabitEthernet0/0",
+      "router": "R1"
+     }
+    }
+   ],
+   "fn": "generate_acl_binding_cli",
+   "id": "generate_acl_binding_cli",
+   "module": "infrastructure.generator.acl_cli_generator"
+  },
+  {
+   "area": "acl_cli_generator",
+   "args": [
+    "R1",
+    "101",
+    "",
+    "in"
+   ],
+   "fn": "build_remove_payload",
+   "id": "build_remove_payload",
+   "module": "infrastructure.generator.acl_cli_generator"
+  },
+  {
+   "area": "nat_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.nat:NATConfig",
+     "fields": {
+      "inside_interface": "GigabitEthernet0/0",
+      "inside_networks": [
+       "192.168.1.0 0.0.0.255"
+      ],
+      "mode": "pat",
+      "outside_interface": "GigabitEthernet0/1",
+      "router": "R1",
+      "use_interface_overload": true
+     }
+    }
+   ],
+   "fn": "generate_nat_body_cli",
+   "id": "generate_nat_body_cli(pat)",
+   "module": "infrastructure.generator.nat_cli_generator"
+  },
+  {
+   "area": "nat_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.nat:NATConfig",
+     "fields": {
+      "inside_interface": "GigabitEthernet0/0",
+      "mode": "static",
+      "outside_interface": "GigabitEthernet0/1",
+      "router": "R1",
+      "static_mappings": [
+       {
+        "$model": "domain.models.nat:NATStaticMapping",
+        "fields": {
+         "inside_global": "200.1.1.5",
+         "inside_local": "192.168.1.10"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "fn": "generate_nat_body_cli",
+   "id": "generate_nat_body_cli(static)",
+   "module": "infrastructure.generator.nat_cli_generator"
+  },
+  {
+   "area": "nat_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.nat:NATConfig",
+     "fields": {
+      "inside_interface": "GigabitEthernet0/0",
+      "inside_networks": [
+       "192.168.1.0 0.0.0.255"
+      ],
+      "mode": "pat",
+      "outside_interface": "GigabitEthernet0/1",
+      "router": "R1",
+      "use_interface_overload": true
+     }
+    }
+   ],
+   "fn": "generate_nat_interface_cli",
+   "id": "generate_nat_interface_cli(pat)",
+   "module": "infrastructure.generator.nat_cli_generator"
+  },
+  {
+   "area": "hardening_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.hardening:HardeningConfig",
+     "fields": {
+      "banner_motd": "Authorized only",
+      "device": "R1",
+      "enable_secret": "s3cret",
+      "hostname": "CORE-R1",
+      "ssh": {
+       "$model": "domain.models.hardening:SSHConfig",
+       "fields": {
+        "domain": "lab.local",
+        "modulus": 2048
+       }
+      },
+      "users": [
+       {
+        "$model": "domain.models.hardening:LocalUser",
+        "fields": {
+         "privilege": 15,
+         "secret": "pw123",
+         "username": "admin"
+        }
+       }
+      ]
+     }
+    }
+   ],
+   "fn": "generate_hardening_cli",
+   "id": "generate_hardening_cli",
+   "module": "infrastructure.generator.hardening_cli_generator"
+  },
+  {
+   "area": "etherchannel_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.etherchannel:EtherChannelConfig",
+     "fields": {
+      "allowed_vlans": [
+       10,
+       20
+      ],
+      "group": 1,
+      "mode": "active",
+      "ports": [
+       "FastEthernet0/1",
+       "FastEthernet0/2"
+      ],
+      "switch": "SW1",
+      "trunk": true
+     }
+    }
+   ],
+   "fn": "generate_etherchannel_cli",
+   "id": "generate_etherchannel_cli",
+   "module": "infrastructure.generator.etherchannel_cli_generator"
+  },
+  {
+   "area": "interface_tuning_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.interface_tuning:InterfaceTuning",
+     "fields": {
+      "bandwidth": 64,
+      "clock_rate": 64000,
+      "interface": "Serial0/0/0",
+      "ospf_cost": 10,
+      "router": "R1"
+     }
+    }
+   ],
+   "fn": "generate_interface_tuning_cli",
+   "id": "generate_interface_tuning_cli",
+   "module": "infrastructure.generator.interface_tuning_cli_generator"
+  },
+  {
+   "area": "switch_security_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.switch_security:STPConfig",
+     "fields": {
+      "bpduguard_ports": [
+       "FastEthernet0/1"
+      ],
+      "mode": "rapid-pvst",
+      "portfast_ports": [
+       "FastEthernet0/1"
+      ],
+      "root_primary_vlans": [
+       10
+      ],
+      "switch": "SW1"
+     }
+    }
+   ],
+   "fn": "generate_stp_cli",
+   "id": "generate_stp_cli",
+   "module": "infrastructure.generator.switch_security_cli_generator"
+  },
+  {
+   "area": "switch_security_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.switch_security:PortSecurityConfig",
+     "fields": {
+      "max_mac": 2,
+      "port": "FastEthernet0/3",
+      "sticky": true,
+      "switch": "SW1",
+      "violation": "shutdown"
+     }
+    }
+   ],
+   "fn": "generate_port_security_cli",
+   "id": "generate_port_security_cli",
+   "module": "infrastructure.generator.switch_security_cli_generator"
+  },
+  {
+   "area": "router_feature_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.router_features:HsrpConfig",
+     "fields": {
+      "group": 1,
+      "interface": "GigabitEthernet0/0",
+      "priority": 110,
+      "router": "R1",
+      "virtual_ip": "192.168.1.254"
+     }
+    }
+   ],
+   "fn": "generate_hsrp_cli",
+   "id": "generate_hsrp_cli",
+   "module": "infrastructure.generator.router_feature_cli_generator"
+  },
+  {
+   "area": "router_feature_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.router_features:BgpConfig",
+     "fields": {
+      "asn": 65001,
+      "neighbors": [
+       {
+        "$model": "domain.models.router_features:BgpNeighbor",
+        "fields": {
+         "ip": "10.0.0.2",
+         "remote_as": 65002
+        }
+       }
+      ],
+      "networks": [
+       "192.168.1.0"
+      ],
+      "router": "R1"
+     }
+    }
+   ],
+   "fn": "generate_bgp_cli",
+   "id": "generate_bgp_cli",
+   "module": "infrastructure.generator.router_feature_cli_generator"
+  },
+  {
+   "area": "router_feature_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.router_features:QosConfig",
+     "fields": {
+      "classes": [
+       {
+        "$model": "domain.models.router_features:QosClass",
+        "fields": {
+         "match_dscp": "ef",
+         "name": "VOICE",
+         "priority_kbps": 256
+        }
+       }
+      ],
+      "interface": "GigabitEthernet0/1",
+      "policy_name": "OUT",
+      "router": "R1"
+     }
+    }
+   ],
+   "fn": "generate_qos_cli",
+   "id": "generate_qos_cli",
+   "module": "infrastructure.generator.router_feature_cli_generator"
+  },
+  {
+   "area": "router_feature_cli_generator",
+   "args": [
+    [
+     "hostname R1",
+     "enable secret x"
+    ]
+   ],
+   "fn": "wrap_ios_payload",
+   "id": "wrap_ios_payload",
+   "module": "infrastructure.generator.router_feature_cli_generator"
+  },
+  {
+   "area": "router_feature_cli_generator",
+   "args": [
+    "R1",
+    "hostname R1"
+   ],
+   "fn": "build_ios_js_call",
+   "id": "build_ios_js_call",
+   "module": "infrastructure.generator.router_feature_cli_generator"
+  },
+  {
+   "area": "vlan_cli_generator",
+   "args": [
+    "2960-24TT"
+   ],
+   "fn": "switch_supports_encap",
+   "id": "switch_supports_encap(2960)",
+   "module": "infrastructure.generator.vlan_cli_generator"
+  },
+  {
+   "area": "vlan_cli_generator",
+   "args": [
+    "3560-24PS"
+   ],
+   "fn": "switch_supports_encap",
+   "id": "switch_supports_encap(3560)",
+   "module": "infrastructure.generator.vlan_cli_generator"
+  },
+  {
+   "area": "vlan_cli_generator",
+   "args": [
+    [
+     {
+      "$model": "domain.models.vlans:VLANConfig",
+      "fields": {
+       "name": "SALES",
+       "vlan_id": 10
+      }
+     },
+     {
+      "$model": "domain.models.vlans:VLANConfig",
+      "fields": {
+       "name": "ENG",
+       "vlan_id": 20
+      }
+     }
+    ],
+    [
+     {
+      "$model": "domain.models.vlans:AccessPortConfig",
+      "fields": {
+       "port": "FastEthernet0/1",
+       "switch": "SW1",
+       "vlan_id": 10
+      }
+     }
+    ],
+    [
+     {
+      "$model": "domain.models.vlans:TrunkConfig",
+      "fields": {
+       "allowed_vlans": [
+        10,
+        20
+       ],
+       "port": "GigabitEthernet0/1",
+       "switch": "SW1"
+      }
+     }
+    ],
+    false
+   ],
+   "fn": "generate_switch_vlan_cli",
+   "id": "generate_switch_vlan_cli",
+   "module": "infrastructure.generator.vlan_cli_generator"
+  },
+  {
+   "area": "voice_cli_generator",
+   "args": [
+    {
+     "$model": "domain.models.voice:VoiceConfig",
+     "fields": {
+      "extensions": [
+       {
+        "$model": "domain.models.voice:VoiceExtension",
+        "fields": {
+         "number": "1001"
+        }
+       },
+       {
+        "$model": "domain.models.voice:VoiceExtension",
+        "fields": {
+         "number": "1002"
+        }
+       }
+      ],
+      "router": "R1",
+      "source_ip": "192.168.10.1"
+     }
+    }
+   ],
+   "fn": "generate_voice_router_cli",
+   "id": "generate_voice_router_cli",
+   "module": "infrastructure.generator.voice_cli_generator"
+  },
+  {
+   "area": "voice_cli_generator",
+   "args": [],
+   "fn": "restart_ip_phones_js",
+   "id": "restart_ip_phones_js",
+   "module": "infrastructure.generator.voice_cli_generator"
+  },
+  {
+   "area": "service_js",
+   "args": [
+    "PC1",
+    "192.168.1.20"
+   ],
+   "fn": "web_go_js",
+   "id": "web_go_js",
+   "module": "infrastructure.generator.service_js"
+  },
+  {
+   "area": "service_js",
+   "args": [
+    "PC1"
+   ],
+   "fn": "web_read_js",
+   "id": "web_read_js",
+   "module": "infrastructure.generator.service_js"
+  },
+  {
+   "area": "service_js",
+   "args": [
+    "PC1"
+   ],
+   "fn": "console_peer_js",
+   "id": "console_peer_js",
+   "module": "infrastructure.generator.service_js"
+  },
+  {
+   "area": "nat_cli_generator",
+   "id": "build_nat_remove_payload(pat)",
+   "module": "infrastructure.generator.nat_cli_generator",
+   "fn": "build_nat_remove_payload",
+   "args": [
+    "R1",
+    "pat",
+    "GigabitEthernet0/0",
+    "GigabitEthernet0/1",
+    "1",
+    "NAT-POOL",
+    null
+   ]
+  },
+  {
+   "area": "nat_cli_generator",
+   "id": "build_nat_remove_payload(static)",
+   "module": "infrastructure.generator.nat_cli_generator",
+   "fn": "build_nat_remove_payload",
+   "args": [
+    "R1",
+    "static",
+    "GigabitEthernet0/0",
+    "GigabitEthernet0/1",
+    "1",
+    "",
+    [
+     {
+      "inside_local": "192.168.1.10",
+      "inside_global": "200.1.1.5"
+     }
+    ]
+   ]
+  }
+ ],
+ "plan_small": {
+  "$model": "domain.models.plans:TopologyPlan",
+  "fields": {
+   "devices": [
+    {
+     "$model": "domain.models.plans:DevicePlan",
+     "fields": {
+      "category": "router",
+      "interfaces": {
+       "GigabitEthernet0/0": "192.168.1.1/24",
+       "GigabitEthernet0/1": "10.0.0.1/30"
+      },
+      "model": "2911",
+      "name": "R1",
+      "role": "core_router",
+      "x": 100,
+      "y": 100
+     }
+    },
+    {
+     "$model": "domain.models.plans:DevicePlan",
+     "fields": {
+      "category": "switch",
+      "model": "2960-24TT",
+      "name": "SW1",
+      "role": "access_switch",
+      "x": 100,
+      "y": 250
+     }
+    },
+    {
+     "$model": "domain.models.plans:DevicePlan",
+     "fields": {
+      "category": "pc",
+      "gateway": "192.168.1.1",
+      "interfaces": {
+       "FastEthernet0": "192.168.1.10/24"
+      },
+      "model": "PC-PT",
+      "name": "PC1",
+      "role": "end_host",
+      "x": 60,
+      "y": 400
+     }
+    }
+   ],
+   "dhcp_pools": [
+    {
+     "$model": "domain.models.plans:DHCPPool",
+     "fields": {
+      "dns": "8.8.8.8",
+      "excluded_end": "192.168.1.10",
+      "excluded_start": "192.168.1.1",
+      "gateway": "192.168.1.1",
+      "mask": "255.255.255.0",
+      "network": "192.168.1.0",
+      "pool_name": "LAN",
+      "router": "R1"
+     }
+    }
+   ],
+   "links": [
+    {
+     "$model": "domain.models.plans:LinkPlan",
+     "fields": {
+      "cable": "straight",
+      "device_a": "R1",
+      "device_b": "SW1",
+      "port_a": "GigabitEthernet0/0",
+      "port_b": "GigabitEthernet0/1"
+     }
+    },
+    {
+     "$model": "domain.models.plans:LinkPlan",
+     "fields": {
+      "cable": "straight",
+      "device_a": "SW1",
+      "device_b": "PC1",
+      "port_a": "FastEthernet0/1",
+      "port_b": "FastEthernet0"
+     }
+    }
+   ],
+   "name": "golden",
+   "ospf_configs": [
+    {
+     "$model": "domain.models.plans:OSPFConfig",
+     "fields": {
+      "networks": [
+       {
+        "area": "0",
+        "network": "192.168.1.0",
+        "wildcard": "0.0.0.255"
+       }
+      ],
+      "process_id": 1,
+      "router": "R1",
+      "router_id": "1.1.1.1"
+     }
+    }
+   ],
+   "static_routes": [
+    {
+     "$model": "domain.models.plans:StaticRoute",
+     "fields": {
+      "destination": "172.16.0.0",
+      "mask": "255.255.0.0",
+      "next_hop": "10.0.0.2",
+      "router": "R1"
+     }
+    }
+   ]
+  }
+ }
+}

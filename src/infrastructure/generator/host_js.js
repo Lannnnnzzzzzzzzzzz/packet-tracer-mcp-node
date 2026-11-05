@@ -1,0 +1,200 @@
+// JS for a device's panel: IP Configuration, reading the panel, and modules.
+//
+// All the JS goes in an IIFE (early `return`s don't cut off other commands in the
+// same HTTP batch) and the data travels as ONE `json.dumps` object: no field is
+// interpolated by hand.
+
+import { pyJsonDumps } from "../../shared/pycompat.js";
+
+// Getters read from each port. Each one sits behind a typeof AND its own
+// try/catch: Port's surface changes by model, and some getters exist but throw
+// (on a router port, getIpv6LinkLocal answers
+// "IPC Call ERROR: HostPort - getIpv6LinkLocal implementation error"). With a
+// single try around the whole port, that error hid the entire port.
+const _PORT_READ_JS = (
+    "function __port(d,n){var p=d.getPort(n);if(!p){return null;}"
+    + "function v(m){try{return typeof p[m]==='function'?p[m]():null;}catch(e){return null;}}"
+    + "function s(m){var x=v(m);return x===null||x===undefined?null:String(x);}"
+    + "function b(m){var x=v(m);return x===null||x===undefined?null:!!x;}"
+    + "return {name:String(n),ip:s('getIpAddress'),mask:s('getSubnetMask'),"
+    + "dhcp:b('isDhcpClientOn'),mac:s('getMacAddress'),up:b('isPortUp'),power:b('getPower'),"
+    + "linked:b('getLink'),ipv6:b('isIpv6Enabled'),ipv6_auto:b('isIpv6AddressAutoConfig'),"
+    + "link_local:s('getIpv6LinkLocal'),ipv6_addresses:v('getIpv6Addresses'),"
+    + "firewall:b('isInboundFirewallOn'),"
+    + "description:s('getDescription')||'',bandwidth_kbps:v('getBandwidth'),"
+    + "full_duplex:b('isFullDuplex')};}"
+);
+
+// The host's IPv4 default gateway. Measured on PT 9 (2026-10-30): it lives on
+// getProcess("HostIpProcess").getDefaultGateway(); Device and Port have no such
+// getter, and getProcess("HostIp") throws. Null on a device without that process.
+const _GATEWAY_JS = (
+    "function __gw(d){try{var hp=d.getProcess('HostIpProcess');"
+    + "if(hp&&typeof hp.getDefaultGateway==='function'){return String(hp.getDefaultGateway());}}"
+    + "catch(e){}return null;}"
+);
+
+const _DEVICE_JS = (
+    "var d=ipc.network().getDevice(c.device);"
+    + "if(!d){reportResult(JSON.stringify({ok:false,error:'device_not_found'}));return;}"
+);
+
+export function host_ip_config_js(
+    device,
+    port = "",
+    opts = {},
+) {
+    // What Desktop > IP Configuration does (and Config > Global > Gateway/DNS).
+    //
+    // Empty `port` = the first Ethernet interface (or Wireless0), like the
+    // extension's configurePcIp. `gateway`/`dns` None = leave alone.
+    //
+    // `ipv6_address` + `ipv6_prefix` add a static IPv6 with
+    // `port.addIpv6Address(address, prefix, 0, false)` (type 0 = unicast, no
+    // duplicates): measured on PT 9.0 it answers true and `getIpv6Addresses()`
+    // then lists `{address, prefix, type}`. Its raw answer is reported as
+    // `ipv6_added`.
+    //
+    // JS port: Python's keyword-only args are passed as the `opts` object
+    // (mode, ip, mask, gateway, dns, ipv6_mode, ipv6_gateway, ipv6_dns,
+    // ipv6_address, ipv6_prefix), defaults identical to Python.
+    const {
+        mode = "", ip = "", mask = "", gateway = null, dns = null,
+        ipv6_mode = "", ipv6_gateway = "", ipv6_dns = "",
+        ipv6_address = "", ipv6_prefix = 0,
+    } = opts;
+    const cfg = pyJsonDumps({
+        "device": device, "port": port, "mode": mode, "ip": ip, "mask": mask,
+        "gateway": gateway, "dns": dns, "ipv6_mode": ipv6_mode,
+        "ipv6_gateway": ipv6_gateway, "ipv6_dns": ipv6_dns,
+        "ipv6_address": ipv6_address, "ipv6_prefix": ipv6_prefix,
+    });
+    return (
+        "(function(){"
+        + `var c=${cfg};`
+        + _DEVICE_JS + _PORT_READ_JS + _GATEWAY_JS +
+        "var names=d.getPorts();var pn=c.port;"
+        + "if(!pn){for(var i=0;i<names.length;i++){var n=String(names[i]);"
+        + "if(n.indexOf('Ethernet')>=0||n==='Wireless0'){pn=n;break;}}}"
+        + "var p=pn?d.getPort(pn):null;"
+        + "if(!p){reportResult(JSON.stringify({ok:false,error:'port_not_found',ports:String(names.join(','))}));return;}"
+        + "if(typeof p.setIpSubnetMask!=='function'||typeof p.setDnsServerIp!=='function')"
+        + "{reportResult(JSON.stringify({ok:false,error:'not_host_port',port:pn}));return;}"
+        // The port as it was: a DHCP request must not mistake the old static
+        // address, still there right after dhcpRun, for a lease.
+        + "var before=__port(d,pn);"
+        + "var applied=[];"
+        + "if(c.mode==='dhcp'){"
+        + "if(typeof d.setDhcpFlag==='function'){d.setDhcpFlag(true);}"
+        + "if(typeof p.setDhcpClientFlag==='function'){p.setDhcpClientFlag(true);}"
+        + "var dc=null;try{dc=d.getProcess('DhcpClient');}catch(e){}"
+        + "if(dc&&typeof dc.dhcpRun==='function'){dc.dhcpRun(pn);}"
+        + "applied.push('dhcp');"
+        + "}else if(c.mode==='static'){"
+        + "if(typeof d.setDhcpFlag==='function'){d.setDhcpFlag(false);}"
+        + "if(typeof p.setDhcpClientFlag==='function'){p.setDhcpClientFlag(false);}"
+        + "applied.push('static');}"
+        + "if(c.ip){p.setIpSubnetMask(c.ip,c.mask);applied.push('ip '+c.ip+' '+c.mask);}"
+        + "if(c.gateway!==null){"
+        + "if(typeof d.setDefaultGateway==='function'){d.setDefaultGateway(c.gateway);}"
+        + "else if(typeof p.setDefaultGateway==='function'){p.setDefaultGateway(c.gateway);}"
+        + "applied.push('gateway '+c.gateway);}"
+        + "if(c.dns!==null){p.setDnsServerIp(c.dns);applied.push('dns '+c.dns);}"
+        + "if(c.ipv6_mode==='auto'&&typeof p.setIpv6Enabled==='function'){p.setIpv6Enabled(true);"
+        + "if(typeof p.setIpv6AddressAutoConfig==='function'){p.setIpv6AddressAutoConfig(true);}applied.push('ipv6 auto');}"
+        + "else if(c.ipv6_mode==='off'&&typeof p.setIpv6Enabled==='function'){p.setIpv6Enabled(false);applied.push('ipv6 off');}"
+        + "if(c.ipv6_gateway&&typeof p.setv6DefaultGateway==='function'){p.setv6DefaultGateway(c.ipv6_gateway);applied.push('ipv6 gateway');}"
+        + "if(c.ipv6_dns&&typeof p.setv6ServerIp==='function'){p.setv6ServerIp(c.ipv6_dns);applied.push('ipv6 dns');}"
+        + "var added6=null;"
+        + "if(c.ipv6_address){try{added6=(typeof p.addIpv6Address==='function')?"
+        + "p.addIpv6Address(c.ipv6_address,c.ipv6_prefix,0,false):'unsupported';}catch(e){added6=String(e);}"
+        + "applied.push('ipv6 '+c.ipv6_address+'/'+c.ipv6_prefix);}"
+        + "reportResult(JSON.stringify({ok:true,port:pn,applied:applied,ipv6_added:added6,"
+        + "dhcp_flag:(typeof d.getDhcpFlag==='function')?!!d.getDhcpFlag():null,before:before,"
+        + "gateway:__gw(d),state:__port(d,pn)}));"
+        + "})();"
+    );
+}
+
+export function port_state_js(device, port) {
+    // Re-read a port (to wait for the DHCP lease) and the host's default gateway.
+    const cfg = pyJsonDumps({"device": device, "port": port});
+    return (
+        "(function(){"
+        + `var c=${cfg};`
+        + _DEVICE_JS + _PORT_READ_JS + _GATEWAY_JS +
+        "reportResult(JSON.stringify({ok:true,gateway:__gw(d),state:__port(d,c.port)}));"
+        + "})();"
+    );
+}
+
+// Service processes reported if present. "Aaa" is left out on purpose: in
+// PT 9.0.1 getProcess("Aaa") throws "invalid string position".
+const _SERVICE_PROCS = [
+    "DhcpServerMain", "DnsServer", "HttpServer", "HttpsServer", "TftpServer",
+    "FtpServer", "SyslogServer", "EmailServer", "SmtpServer", "Pop3Server", "NtpServer",
+];
+
+export function read_device_panel_js(device) {
+    // Everything Physical/Config/Desktop/Services show, in one go and read-only.
+    const cfg = pyJsonDumps({"device": device, "procs": [..._SERVICE_PROCS]});
+    return (
+        "(function(){"
+        + `var c=${cfg};`
+        + _DEVICE_JS + _PORT_READ_JS + _GATEWAY_JS +
+        "function has(m){return typeof d[m]==='function';}"
+        + "var out={ok:true,name:String(d.getName()),model:String(d.getModel()),type:d.getType(),"
+        + "power:has('getPower')?!!d.getPower():null,"
+        + "host:has('getCommandPrompt'),"
+        + "desktop:has('isDesktopAvailable')?!!d.isDesktopAvailable():null,"
+        + "dhcp_flag:has('getDhcpFlag')?!!d.getDhcpFlag():null,"
+        + "hostname:has('getHostName')?String(d.getHostName()):null,gateway:__gw(d),"
+        + "ports:[],services:{}};"
+        + "var names=d.getPorts();"
+        + "for(var i=0;i<names.length;i++){try{var s=__port(d,names[i]);if(s){out.ports.push(s);}}catch(e){}}"
+        + "for(var j=0;j<c.procs.length;j++){var pr=null;try{pr=d.getProcess(c.procs[j]);}catch(e){}"
+        + "if(!pr){continue;}var en=null;"
+        + "if(typeof pr.isEnabled==='function'){en=!!pr.isEnabled();}"
+        + "else if(typeof pr.isEnable==='function'){en=!!pr.isEnable();}"
+        + "out.services[c.procs[j]]=en;}"
+        + "var dm=null;try{dm=d.getProcess('DhcpServerMain');}catch(e){}"
+        + "if(dm&&names.length){var sp=null;try{sp=dm.getDhcpServerProcessByPortName(String(names[0]));}catch(e){}"
+        + "if(sp){out.services.DhcpServerMain=!!sp.isEnable();out.dhcp_pools=sp.getPoolCount();}}"
+        + "reportResult(JSON.stringify(out));"
+        + "})();"
+    );
+}
+
+export function add_module_js(device, slot, module) {
+    // Install a module with the extension's `addModule` helper and REPORT the result.
+    //
+    // The original pt_add_module did `return JSON.stringify(...)` without calling
+    // reportResult: over HTTP it always ended in a timeout even when the module
+    // was installed, and over the file bridge it returned "" (hence the "timeout
+    // but it worked" the skill used to document).
+    return (
+        "(function(){"
+        + `var ok=addModule(${pyJsonDumps(device)},${pyJsonDumps(slot)},${pyJsonDumps(module)});`
+        + "reportResult(JSON.stringify({success:ok===true,returned:String(ok)}));"
+        + "})();"
+    );
+}
+
+export function remove_module_js(device, slot) {
+    // Remove the module in a slot (Physical tab) with the same power-cycle as addModule.
+    const cfg = pyJsonDumps({"device": device, "slot": slot});
+    return (
+        "(function(){"
+        + `var c=${cfg};`
+        + _DEVICE_JS +
+        "if(typeof d.removeModule!=='function'){reportResult(JSON.stringify({ok:false,error:'unsupported'}));return;}"
+        + "var before=String(d.getPorts().join(','));"
+        + "var hp=typeof d.getPower==='function'&&typeof d.setPower==='function';"
+        + "var was=hp?d.getPower():false;if(hp&&was){d.setPower(false);}"
+        + "var ok=false;try{ok=d.removeModule(c.slot);}catch(e){ok=false;}"
+        + "if(hp&&was){d.setPower(true);if(typeof d.skipBoot==='function'){d.skipBoot();}}"
+        + "reportResult(JSON.stringify({ok:true,removed:ok===true,before:before,"
+        + "after:String(d.getPorts().join(','))}));"
+        + "})();"
+    );
+}

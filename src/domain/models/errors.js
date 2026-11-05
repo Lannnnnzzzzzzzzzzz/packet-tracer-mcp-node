@@ -1,0 +1,244 @@
+// System error taxonomy.
+//
+// Each error has a code, message and suggestion so the LLM
+// can understand what failed and how to fix it automatically.
+
+export const ErrorCode = Object.freeze({
+    // Devices
+    UNKNOWN_DEVICE_MODEL: "UNKNOWN_DEVICE_MODEL",
+    DUPLICATE_DEVICE_NAME: "DUPLICATE_DEVICE_NAME",
+    DEVICE_INVALID_NAME: "DEVICE_INVALID_NAME",
+    INSUFFICIENT_PORTS: "INSUFFICIENT_PORTS",
+
+    // Links
+    DEVICE_NOT_FOUND: "DEVICE_NOT_FOUND",
+    INVALID_PORT: "INVALID_PORT",
+    PORT_ALREADY_USED: "PORT_ALREADY_USED",
+    INVALID_CABLE_TYPE: "INVALID_CABLE_TYPE",
+
+    // IPs
+    INVALID_IP_ADDRESS: "INVALID_IP_ADDRESS",
+    SUBNET_OVERLAP: "SUBNET_OVERLAP",
+    IP_CONFLICT: "IP_CONFLICT",
+
+    // DHCP
+    DHCP_ROUTER_NOT_FOUND: "DHCP_ROUTER_NOT_FOUND",
+    DHCP_GATEWAY_MISMATCH: "DHCP_GATEWAY_MISMATCH",
+    DHCP_INVALID_POOL_NAME: "DHCP_INVALID_POOL_NAME",
+
+    // DHCP on a Server-PT (pt_configure_dhcp_server)
+    DHCP_SERVER_DEVICE_NOT_FOUND: "DHCP_SERVER_DEVICE_NOT_FOUND",
+    DHCP_SERVER_PORT_NOT_FOUND: "DHCP_SERVER_PORT_NOT_FOUND",
+    DHCP_SERVER_INVALID_ADDRESS: "DHCP_SERVER_INVALID_ADDRESS",
+    DHCP_SERVER_OUT_OF_SUBNET: "DHCP_SERVER_OUT_OF_SUBNET",
+    DHCP_SERVER_INVALID_RANGE: "DHCP_SERVER_INVALID_RANGE",
+    DHCP_SERVER_RANGE_OVERLAP: "DHCP_SERVER_RANGE_OVERLAP",
+    DHCP_SERVER_INCOMPLETE: "DHCP_SERVER_INCOMPLETE",
+    DHCP_SERVER_NO_IP: "DHCP_SERVER_NO_IP",
+
+    // Routing
+    UNSUPPORTED_ROUTING_PROTOCOL: "UNSUPPORTED_ROUTING_PROTOCOL",
+    OSPF_NO_NETWORKS: "OSPF_NO_NETWORKS",
+    OSPF_INVALID_ROUTER_ID: "OSPF_INVALID_ROUTER_ID",
+
+    // Topology (shape of the graph)
+    TOPOLOGY_DISCONNECTED: "TOPOLOGY_DISCONNECTED",
+
+    // Wireless
+    WIRELESS_AMBIGUOUS_ASSOCIATION: "WIRELESS_AMBIGUOUS_ASSOCIATION",
+
+    // Templates
+    TEMPLATE_CONSTRAINT_VIOLATION: "TEMPLATE_CONSTRAINT_VIOLATION",
+
+    // ACL
+    ACL_ROUTER_NOT_FOUND: "ACL_ROUTER_NOT_FOUND",
+    ACL_INTERFACE_NOT_FOUND: "ACL_INTERFACE_NOT_FOUND",
+    ACL_INVALID_NUMBER: "ACL_INVALID_NUMBER",
+    ACL_TYPE_MISMATCH: "ACL_TYPE_MISMATCH",
+    ACL_DUPLICATE_SEQUENCE: "ACL_DUPLICATE_SEQUENCE",
+    ACL_INVALID_WILDCARD: "ACL_INVALID_WILDCARD",
+    ACL_INVALID_PROTOCOL_FOR_PORTS: "ACL_INVALID_PROTOCOL_FOR_PORTS",
+    ACL_UNREACHABLE_RULE: "ACL_UNREACHABLE_RULE",
+    ACL_EMPTY: "ACL_EMPTY",
+    ACL_INVALID_REMARK: "ACL_INVALID_REMARK",
+    ACL_INVALID_NAME: "ACL_INVALID_NAME",
+
+    // NAT
+    NAT_ROUTER_NOT_FOUND: "NAT_ROUTER_NOT_FOUND",
+    NAT_INTERFACE_NOT_FOUND: "NAT_INTERFACE_NOT_FOUND",
+    NAT_INVALID_IP: "NAT_INVALID_IP",
+    NAT_INVALID_NETMASK: "NAT_INVALID_NETMASK",
+    NAT_POOL_RANGE_INVALID: "NAT_POOL_RANGE_INVALID",
+    NAT_MISSING_INSIDE_NETWORKS: "NAT_MISSING_INSIDE_NETWORKS",
+    NAT_MISSING_STATIC_MAPPINGS: "NAT_MISSING_STATIC_MAPPINGS",
+    NAT_MISSING_POOL: "NAT_MISSING_POOL",
+    NAT_SAME_INTERFACE: "NAT_SAME_INTERFACE",
+    NAT_INVALID_NAME: "NAT_INVALID_NAME",
+
+    // VLAN / trunk / inter-VLAN
+    VLAN_INVALID_ID: "VLAN_INVALID_ID",
+    VLAN_DUPLICATE_ID: "VLAN_DUPLICATE_ID",
+    VLAN_SUBNET_OVERLAP: "VLAN_SUBNET_OVERLAP",
+    VLAN_TRUNK_PORT_INVALID: "VLAN_TRUNK_PORT_INVALID",
+    VLAN_ROUTER_NOT_FOUND: "VLAN_ROUTER_NOT_FOUND",
+    VLAN_SWITCH_NOT_FOUND: "VLAN_SWITCH_NOT_FOUND",
+    VLAN_INTERFACE_NOT_FOUND: "VLAN_INTERFACE_NOT_FOUND",
+    VLAN_INVALID_NAME: "VLAN_INVALID_NAME",
+
+    // STP / port-security
+    STP_INVALID_PRIORITY: "STP_INVALID_PRIORITY",
+    STP_SWITCH_NOT_FOUND: "STP_SWITCH_NOT_FOUND",
+    PORTSEC_SWITCH_NOT_FOUND: "PORTSEC_SWITCH_NOT_FOUND",
+    PORTSEC_INVALID_MAC: "PORTSEC_INVALID_MAC",
+    PORTSEC_INVALID_MAX: "PORTSEC_INVALID_MAX",
+
+    // Device hardening
+    HARDENING_DEVICE_NOT_FOUND: "HARDENING_DEVICE_NOT_FOUND",
+    HARDENING_SSH_REQUIRES_DOMAIN: "HARDENING_SSH_REQUIRES_DOMAIN",
+    HARDENING_WEAK_MODULUS: "HARDENING_WEAK_MODULUS",
+    HARDENING_INVALID_CHARS: "HARDENING_INVALID_CHARS",
+    HARDENING_CONSOLE_LOGIN: "HARDENING_CONSOLE_LOGIN",
+
+    // NetFlow
+    NETFLOW_INVALID_NAME: "NETFLOW_INVALID_NAME",
+    NETFLOW_INVALID_DESTINATION: "NETFLOW_INVALID_DESTINATION",
+    NETFLOW_INVALID_PORT: "NETFLOW_INVALID_PORT",
+    NETFLOW_INVALID_VERSION: "NETFLOW_INVALID_VERSION",
+    NETFLOW_INCOMPLETE: "NETFLOW_INCOMPLETE",
+    NETFLOW_DEVICE_NOT_FOUND: "NETFLOW_DEVICE_NOT_FOUND",
+    NETFLOW_PORT_NOT_FOUND: "NETFLOW_PORT_NOT_FOUND",
+
+    // Interface tuning
+    IFTUNE_DEVICE_NOT_FOUND: "IFTUNE_DEVICE_NOT_FOUND",
+    IFTUNE_INTERFACE_NOT_FOUND: "IFTUNE_INTERFACE_NOT_FOUND",
+    IFTUNE_CLOCKRATE_NOT_SERIAL: "IFTUNE_CLOCKRATE_NOT_SERIAL",
+    IFTUNE_INVALID_OSPF_AUTH: "IFTUNE_INVALID_OSPF_AUTH",
+    IFTUNE_INVALID_OSPF_TIMERS: "IFTUNE_INVALID_OSPF_TIMERS",
+
+    // HSRP / BGP / QoS on a router, EtherChannel on a switch
+    FEATURE_UNSUPPORTED_DEVICE: "FEATURE_UNSUPPORTED_DEVICE",
+    HSRP_DEVICE_NOT_FOUND: "HSRP_DEVICE_NOT_FOUND",
+    HSRP_INTERFACE_NOT_FOUND: "HSRP_INTERFACE_NOT_FOUND",
+    HSRP_INVALID_GROUP: "HSRP_INVALID_GROUP",
+    HSRP_INVALID_PRIORITY: "HSRP_INVALID_PRIORITY",
+    HSRP_INVALID_VERSION: "HSRP_INVALID_VERSION",
+    HSRP_INVALID_VIRTUAL_IP: "HSRP_INVALID_VIRTUAL_IP",
+    BGP_DEVICE_NOT_FOUND: "BGP_DEVICE_NOT_FOUND",
+    BGP_INVALID_ASN: "BGP_INVALID_ASN",
+    BGP_INVALID_NEIGHBOR: "BGP_INVALID_NEIGHBOR",
+    BGP_INVALID_NETWORK: "BGP_INVALID_NETWORK",
+    BGP_EMPTY: "BGP_EMPTY",
+    QOS_DEVICE_NOT_FOUND: "QOS_DEVICE_NOT_FOUND",
+    QOS_INTERFACE_NOT_FOUND: "QOS_INTERFACE_NOT_FOUND",
+    QOS_INVALID_NAME: "QOS_INVALID_NAME",
+    QOS_INVALID_MATCH: "QOS_INVALID_MATCH",
+    QOS_INVALID_ACTION: "QOS_INVALID_ACTION",
+    QOS_INVALID_DIRECTION: "QOS_INVALID_DIRECTION",
+    QOS_EMPTY: "QOS_EMPTY",
+    ETHERCHANNEL_SWITCH_NOT_FOUND: "ETHERCHANNEL_SWITCH_NOT_FOUND",
+    ETHERCHANNEL_PORT_NOT_FOUND: "ETHERCHANNEL_PORT_NOT_FOUND",
+    ETHERCHANNEL_INVALID_GROUP: "ETHERCHANNEL_INVALID_GROUP",
+    ETHERCHANNEL_INVALID_MODE: "ETHERCHANNEL_INVALID_MODE",
+    ETHERCHANNEL_INVALID_PORTS: "ETHERCHANNEL_INVALID_PORTS",
+    ETHERCHANNEL_INVALID_VLAN: "ETHERCHANNEL_INVALID_VLAN",
+
+    // Cisco CME voice (telephony-service) on a router, voice VLAN on a switch
+    VOICE_DEVICE_NOT_FOUND: "VOICE_DEVICE_NOT_FOUND",
+    VOICE_UNSUPPORTED_ROUTER: "VOICE_UNSUPPORTED_ROUTER",
+    VOICE_INVALID_SOURCE_IP: "VOICE_INVALID_SOURCE_IP",
+    VOICE_INVALID_RANGE: "VOICE_INVALID_RANGE",
+    VOICE_INVALID_EXTENSION: "VOICE_INVALID_EXTENSION",
+    VOICE_INVALID_VLAN: "VOICE_INVALID_VLAN",
+    VOICE_INVALID_PORT: "VOICE_INVALID_PORT",
+    VOICE_INVALID_DHCP: "VOICE_INVALID_DHCP",
+
+    // Console (IOS CLI / host Command Prompt)
+    CONSOLE_DEVICE_REQUIRED: "CONSOLE_DEVICE_REQUIRED",
+    CONSOLE_EMPTY: "CONSOLE_EMPTY",
+    CONSOLE_INVALID_CHARS: "CONSOLE_INVALID_CHARS",
+    CONSOLE_COMMAND_TOO_LONG: "CONSOLE_COMMAND_TOO_LONG",
+    CONSOLE_TOO_MANY_COMMANDS: "CONSOLE_TOO_MANY_COMMANDS",
+    CONSOLE_INVALID_TIMEOUT: "CONSOLE_INVALID_TIMEOUT",
+
+    // Device panel (IP Configuration, interface, services)
+    PANEL_INVALID_IP: "PANEL_INVALID_IP",
+    PANEL_INVALID_VALUE: "PANEL_INVALID_VALUE",
+    PANEL_INVALID_CHARS: "PANEL_INVALID_CHARS",
+
+    // General
+    INVALID_INTERFACE_ASSIGNMENT: "INVALID_INTERFACE_ASSIGNMENT",
+    VALIDATION_ERROR: "VALIDATION_ERROR",
+});
+
+function _code_value(code) {
+    // Python ErrorCode is a str Enum: its .value is the string itself.
+    if (code === null || code === undefined) return code;
+    if (typeof code === "string") return code;
+    if (typeof code === "object" && "value" in code) return code.value;
+    return String(code);
+}
+
+export class PlanError {
+    /** Structured error with a code, message and fix suggestion. */
+    constructor(obj = {}) {
+        this.code = obj.code !== undefined ? obj.code : undefined;
+        this.message = obj.message !== undefined ? obj.message : undefined;
+        this.device = obj.device !== undefined ? obj.device : "";
+        this.suggestion = obj.suggestion !== undefined ? obj.suggestion : "";
+    }
+
+    toString() {
+        const parts = [`[${_code_value(this.code)}]`];
+        if (this.device) {
+            parts.push(`(${this.device})`);
+        }
+        parts.push(this.message);
+        if (this.suggestion) {
+            parts.push(`→ Suggestion: ${this.suggestion}`);
+        }
+        return parts.join(" ");
+    }
+
+    to_dict() {
+        return {
+            "error_code": _code_value(this.code),
+            "device": this.device,
+            "message": this.message,
+            "suggestion": this.suggestion,
+        };
+    }
+
+    toDict() { return this.to_dict(); }
+}
+
+export class ValidationResult {
+    /** Complete result of a validation. */
+    constructor(obj = {}) {
+        this.errors = obj.errors !== undefined ? [...obj.errors] : [];
+        this.warnings = obj.warnings !== undefined ? [...obj.warnings] : [];
+    }
+
+    get is_valid() {
+        return this.errors.length === 0;
+    }
+
+    error_messages() {
+        return this.errors.map((e) => String(e));
+    }
+
+    warning_messages() {
+        return this.warnings.map((w) => String(w));
+    }
+
+    to_dict() {
+        return {
+            "valid": this.is_valid,
+            "error_count": this.errors.length,
+            "warning_count": this.warnings.length,
+            "errors": this.errors.map((e) => e.to_dict()),
+            "warnings": this.warnings.map((w) => w.to_dict()),
+        };
+    }
+
+    toDict() { return this.to_dict(); }
+}
