@@ -100,6 +100,26 @@ git pull
 npm install
 ```
 
+## Low on C: space? Put everything on D:
+
+- **Node.js** — the LTS installer lets you change the install folder
+  (pick e.g. `D:\nodejs`).
+- **npm global tools + cache** —
+  `npm config set prefix "D:\npm-global"` and
+  `npm config set cache "D:\npm-cache"`, then add `D:\npm-global` to
+  your user `Path` (Settings > Environment Variables) and reopen the
+  terminal. Claude Code then installs with
+  `npm install -g @anthropic-ai/claude-code` onto D:.
+- **This repo** — clone it anywhere, e.g. `D:\packet-tracer-mcp-node`,
+  and use that path in the registration command.
+- **MCP working files** — register with
+  `-e PT_MCP_WORKDIR=D:\PacketTracerMCP` so exports, screenshots and
+  plans land on D: instead of your user folder.
+- **Claude Code's own config/history** (small, text only) lives in
+  `%USERPROFILE%\.claude` by default; set the `CLAUDE_CONFIG_DIR`
+  environment variable (e.g. to `D:\claude-config`) before the first
+  run if you want that on D: too.
+
 ## Troubleshooting
 
 - **`pt_bridge_status` not connected** — Packet Tracer is not open, the
