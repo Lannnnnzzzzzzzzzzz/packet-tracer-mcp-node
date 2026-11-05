@@ -44,9 +44,11 @@ the Packet Tracer bridge on port **54321**.
 
 Packet Tracer stays on your machine; only the MCP server is in this repo.
 
-1. Install the **MCP Control Center** extension into Packet Tracer from the
-   upstream releases (the extension in `extension/` here is an unchanged copy
-   of upstream's `EXTENSION/` folder: `script-engine/` + `webview/`).
+1. Install the **MCP Control Center** extension into Packet Tracer from
+   this repo's [Releases](https://github.com/Lannnnnzzzzzzzzzzz/packet-tracer-mcp-node/releases)
+   (the bundled `.pts` is the unchanged upstream build; its source is the
+   `extension/` folder here: `script-engine/` + `webview/`). Windows users:
+   see `SETUP-WINDOWS.md` for the full walkthrough.
 2. Open Packet Tracer and the extension (Extensions > MCP BUILDER). With the
    window open it polls the bridge over HTTP; with the window closed, the
    Script Engine keeps working through the file mailbox next to the token
