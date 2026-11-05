@@ -90,6 +90,4 @@ tools), `src/shared`.
 
 ## License
 
-MIT — see `LICENSE`. Original Python implementation © Mats2208
-(https://github.com/Mats2208/MCP-Packet-Tracer); this port keeps the same
-license and attribution.
+MIT — see `LICENSE`.
