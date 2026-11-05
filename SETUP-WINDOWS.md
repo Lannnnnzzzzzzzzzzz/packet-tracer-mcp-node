@@ -5,7 +5,7 @@ Claude Code as the MCP client. Everything is downloaded from this repo.
 
 ## 0. Prerequisites
 
-- **Cisco Packet Tracer 9.x** installed (tested with 9.0.1).
+- **Cisco Packet Tracer 8.2 or newer** installed (upstream requirement: 8.2+; verified end to end on 9.0.1).
 - **Node.js >= 20** — check with `node -v`. If missing, install the LTS
   from https://nodejs.org, then reopen your terminal.
 - **Git** — check with `git --version`. If missing: https://git-scm.com.
@@ -31,7 +31,7 @@ Remember this folder's full path; you need it in step 3.
    required, Explorer will ask):
 
    ```
-   C:\Program Files\Cisco Packet Tracer 9.0.1\extensions\MCPControlCenter\
+   C:\Program Files\Cisco Packet Tracer <version>\extensions\MCPControlCenter\
    ```
 
 3. Put `MCP-Control-Center.pts` in that subfolder.
